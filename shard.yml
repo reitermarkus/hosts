@@ -1,0 +1,14 @@
+name: hosts
+version: 0.1.0
+
+authors:
+  - Markus Reiter <me@reitermark.us>
+
+dependencies:
+  ipaddress:
+    github: sija/ipaddress.cr
+    version: ~> 0.1.0
+
+targets:
+  shards:
+    main: src/shards.cr
