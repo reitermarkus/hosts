@@ -1,6 +1,6 @@
-class Hosts
+class HostsFile
   module Line
-    class Empty
+    class Comment
       include Line
     end
   end

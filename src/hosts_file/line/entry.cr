@@ -1,4 +1,4 @@
-class Hosts
+class HostsFile
   module Line
     class Entry
       include Line

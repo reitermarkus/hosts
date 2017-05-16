@@ -1,6 +1,6 @@
 require "./line/*"
 
-class Hosts
+class HostsFile
   module Line
     def self.parse(line : String)
       case line
