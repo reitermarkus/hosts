@@ -41,7 +41,7 @@ class HostsFile
     end
 
     each_line do |line|
-      next unless line.is_a?(Line::Entry)
+      next unless line.entry?
 
       next unless line.as(Line::Entry).ip == ip
       next unless line.as(Line::Entry).hostnames.includes?(hostname)
@@ -71,7 +71,7 @@ class HostsFile
 
           ip_string = Regex.escape(entry.ip.to_s)
           hostnames_string = entry.hostnames.map { |hn| hn.to_s }.join(" ")
-          changed_line = entry.raw.sub(/\A(\s*#{ip_string}\s+).*?(\s*\#.*)\Z/, "\\1#{hostnames_string}\\2")
+          changed_line = entry.raw.sub(/\A(\s*#{ip_string}\s+)(?:[^\s]+(?:\s+[^\s\#]+)*)/, "\\1#{hostnames_string}")
 
           line = Line::Entry.new(changed_line)
         end
