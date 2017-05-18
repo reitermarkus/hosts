@@ -9,6 +9,7 @@ file = "/etc/hosts"
 
 OptionParser.parse! do |parser|
   parser.banner = "Usage: #{File.basename(__FILE__, ".cr")} [arguments]"
+  parser.on("-l", "--list", "List hosts entries.") { action = :list }
   parser.on("-a", "--add", "Add hosts entry.") { action = :add }
   parser.on("-d", "--delete", "Delete hosts entry.") { action = :delete }
   parser.on("-h HOSTNAME", "--hostname HOSTNAME", "Hostname") { |h| hostname = h }
@@ -24,6 +25,14 @@ begin
     hosts.add(hostname.not_nil!, ip.not_nil!)
   when :delete
     hosts.delete(hostname.not_nil!)
+  when :list
+    hosts.entries.each do |ip, hostnames|
+      puts ip.to_s
+
+      hostnames.each do |hostname|
+        puts "  #{hostname}"
+      end
+    end
   else
     STDERR.puts "Error: Action argument -a or -r required."
     exit(1)

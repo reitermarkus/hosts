@@ -56,6 +56,21 @@ class HostsFile
     end
   end
 
+  def entries
+    entries = {} of IPAddress => Array(IPAddress | String)
+
+    each_line do |line|
+      next unless line.entry?
+
+      entry = line.as(Line::Entry)
+
+      entries[entry.ip] ||= [] of IPAddress | String
+      entries[entry.ip].concat(entry.hostnames)
+    end
+
+    entries
+  end
+
   def delete(hostname : IPAddress | String)
     changed = false
 
