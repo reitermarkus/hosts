@@ -7,21 +7,25 @@ describe HostsFile::Line do
     it "correctly parses comments" do
       parsed_line = HostsFile::Line.parse("# this is a comment\n")
       parsed_line.should be_a(HostsFile::Line::Comment)
+      parsed_line.should be_a(HostsFile::Line)
     end
 
     it "correctly parses an empty line with tabs" do
       parsed_line = HostsFile::Line.parse("\t\t")
       parsed_line.should be_a(HostsFile::Line::Empty)
+      parsed_line.should be_a(HostsFile::Line)
     end
 
     it "correctly parses an empty line with spaces" do
       parsed_line = HostsFile::Line.parse("\ \t")
       parsed_line.should be_a(HostsFile::Line::Empty)
+      parsed_line.should be_a(HostsFile::Line)
     end
 
     it "correctly parses a completely empty line" do
       parsed_line = HostsFile::Line.parse("\t\t")
       parsed_line.should be_a(HostsFile::Line::Empty)
+      parsed_line.should be_a(HostsFile::Line)
     end
 
     it "correctly parses a normal line" do
@@ -30,6 +34,7 @@ describe HostsFile::Line do
 
       parsed_line = HostsFile::Line.parse("#{ip} #{hostname}")
       parsed_line.should be_a(HostsFile::Line::Entry)
+      parsed_line.should be_a(HostsFile::Line)
 
       entry = parsed_line.as(HostsFile::Line::Entry)
 
